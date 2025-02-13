@@ -12,6 +12,11 @@ If you use AI assistance in your project, please don’t be shy and show your co
 ```
 ![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CHINA%20NO1)
 
+```
+![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CHINA%20NO1)
+```
+![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CHINA%20NO1)
+
 ## 一些段写给开源社区大手子的话 Some words to the big names in the open source community
 
 我只是个Javascript新手，我知道我写的代码和屎一样，请不要批评，请帮我修改，谢谢
