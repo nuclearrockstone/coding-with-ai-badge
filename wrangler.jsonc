@@ -4,7 +4,7 @@
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "my-first-worker",
+  "name": "coding-with-ai-badge",
   "main": "src/index.js",
   "compatibility_date": "2025-02-04",
   "observability": {
