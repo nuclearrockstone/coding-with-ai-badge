@@ -8,14 +8,14 @@ If you use AI assistance in your project, please don’t be shy and show your co
 ## 使用方法 Usage
 
 ```
-![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CHINA%20NO1)
+[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 ```
-![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CHINA%20NO1)
+[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 
 ```
-![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CHINA%20NO1)
+[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 ```
-![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CHINA%20NO1)
+[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 
 ## 一些段写给开源社区大手子的话 Some words to the big names in the open source community
 
