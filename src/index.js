@@ -9,7 +9,7 @@
  */
 
 const transform_dict = {deepseek:'scale(1.2, 1.2) translate(7,7)',chatgpt:'scale(0.5, 0.5) translate(10,10)',gpt3:'scale(0.5, 0.5) translate(10,10)'}
-const name_dict = {deepseek:'DeepSeek',chatgpt:'ChatGPT',gpt3:'GPT-3'}
+const name_dict = {deepseek:'DeepSeek',chatgpt:'ChatGPT',openai:'OpenAI'}
 export default {
 	async fetch(request,env) {
 		const url = new URL(request.url)
