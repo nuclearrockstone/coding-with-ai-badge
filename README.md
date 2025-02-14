@@ -34,6 +34,7 @@ Open source project [lobe-icons](https://github.com/lobehub/lobe-icons)
 The icons used in this project are all from this project, and the relevant icon names can be found in it
 ## 开发计划 Futureplan
 
+
 - [ ] 丰富模型名称的大小写与中英文对照
 - [ ] 增加更多背景颜色选择
 - [ ] 增强代码鲁棒性
