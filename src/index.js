@@ -46,7 +46,7 @@ export default {
 		});
 
 		let text_up = Math.ceil(5.83*text.length);
-		let text_down = Math.ceil(11.5*(model_name || model).length);
+		let text_down = Math.ceil(13*(model_name || model).length);
 		let text_x = Math.max(text_up,text_down);
 	  
 		// 构建SVG内容
