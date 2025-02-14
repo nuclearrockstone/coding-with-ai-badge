@@ -23,7 +23,11 @@ If you use AI assistance in your project, please don’t be shy and show your co
 
 I'm just a Javascript newbie, I know the code I wrote is shit, please don't criticize, please help me fix it, thanks
 
-## 鸣谢
+## 鸣谢 Thanks
 开源项目[lobe-icons](https://github.com/lobehub/lobe-icons)
 
+Open source project [lobe-icons](https://github.com/lobehub/lobe-icons)
+
 本项目使用的icon均来自于该项目，相关图标名称均可在其中查询
+
+The icons used in this project are all from this project, and the relevant icon names can be found in it
