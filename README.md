@@ -1,3 +1,4 @@
+<p align="center"><img align="center" src="https://badge.nuclearrockstone.xyz/?text=CODING%20WITH&modelname=AI%20BADGE"></p>
 <h1 align="center">CODING WITH AI BADGE</h1>
 <h3 align="center">Powered by Cloudflare Workers ⚡</h3>
 
@@ -8,14 +9,14 @@ If you use AI assistance in your project, please don’t be shy and show your **
 ## 使用方法 Usage
 
 ```
-[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
+[![BADGE](https://badge.nuclearrockstone.xyz/?model=deepseek&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 ```
-[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=deepseek&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
+[![BADGE](https://badge.nuclearrockstone.xyz/?model=deepseek&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 
 ```
-[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
+[![BADGE](https://badge.nuclearrockstone.xyz/?model=openai&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 ```
-[![BADGE](https://coding-with-ai-badge.nuclearrockstone.workers.dev/?model=openai&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
+[![BADGE](https://badge.nuclearrockstone.xyz/?model=openai&text=CODING%20WITH)](https://github.com/nuclearrockstone/coding-with-ai-badge)
 
 ## 一段写给开源社区大手子的话 Some words to the big names in the open source community
 
