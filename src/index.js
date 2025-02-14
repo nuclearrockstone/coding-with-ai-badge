@@ -18,10 +18,9 @@ export default {
 		console.log(protocol,host);
 		const text = url.searchParams.get('text') || 'coding with'  ;// 获取查询参数中的'text'，默认为'Hello, World!'
 		const model = url.searchParams.get('model') || 'openai';
-		const model_name = url.searchParams.get('modelname') || model;
+		const model_name = url.searchParams.get('modelname');		
 		const response = await env.ASSETS.fetch(protocol+host+'/'+model+'.svg');
 		const svg = await response.text();
-		let pathContent = '';
 		let pathDataList = [];
 
 		// 使用 HTMLRewriter 解析并提取 <path> 标签内容
@@ -47,7 +46,7 @@ export default {
 		});
 
 		let text_up = Math.ceil(5.83*text.length);
-		let text_down = Math.ceil(11.5*model_name.length);
+		let text_down = Math.ceil(11.5*(model_name || model).length);
 		let text_x = Math.max(text_up,text_down);
 	  
 		// 构建SVG内容
@@ -62,7 +61,7 @@ export default {
 			
 			<rect width="100%" height="100%" fill="url(#Gradient2)" rx="10" ry="10"/>
 			${pathDataList.map((d, index) => `<path d="${d}" fill="white" fill-rule="evenodd" transform="scale(1.7,1.7) translate(3,3)" />`).join(' ')}
-			<text x="${text_x/2+50}" y="80%" font-size="20" text-anchor="middle" fill="white" textLength="${text_down}" font-weight='bold' font-family='sans-serif'>${name_dict[model] || model_name}</text>			
+			<text x="${text_x/2+50}" y="80%" font-size="20" text-anchor="middle" fill="white" textLength="${text_down}" font-weight='bold' font-family='sans-serif'>${ model_name || name_dict[model] || model}</text>			
 			<text x="${text_x/2+50}" y="35%" font-size='10' text-anchor="middle" fill="white" textLength="${text_up}" font-family='sans-serif'>${text}</text>
 		  </svg>
 		`
