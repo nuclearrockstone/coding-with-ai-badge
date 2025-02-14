@@ -1,9 +1,9 @@
 <h1 align="center">CODING WITH AI BADGE</h1>
 <h3 align="center">Powered by Cloudflare Workers ⚡</h3>
 
-如果你在你的项目中使用了AI辅助，请不要羞涩，请在项目中大方的亮出你的CODING WITH AI BADGE
+如果你在你的项目中使用了AI辅助，请不要羞涩，请在项目中大方的亮出你的**CODING WITH AI BADGE**
 
-If you use AI assistance in your project, please don’t be shy and show your coding with AI BADGE in the project.
+If you use AI assistance in your project, please don’t be shy and show your **CODING WITH AI BADGE** in the project.
 
 ## 使用方法 Usage
 
