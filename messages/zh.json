@@ -1,0 +1,60 @@
+{
+  "common": {
+    "title": "AI Badge 徽章生成器",
+    "description": "生成精美的徽章，展示您项目中使用的 AI 模型、工具和提供商",
+    "github": "GitHub"
+  },
+  "hero": {
+    "title": "创建精美的 AI 徽章",
+    "subtitle": "生成时尚的徽章来展示您在项目中使用的 AI 模型、工具和提供商。非常适合 GitHub README、文档和网站。"
+  },
+  "config": {
+    "selectIcon": "选择图标",
+    "category": "类别",
+    "selectCategory": "选择类别...",
+    "searchCategory": "搜索类别...",
+    "name": "名称",
+    "selectName": "选择名称...",
+    "searchName": "搜索名称...",
+    "noResults": "未找到结果。",
+    "customizeText": "自定义文字",
+    "line1": "第一行（顶部文字）",
+    "line1Placeholder": "coding with",
+    "line2": "第二行（主要文字）",
+    "line2Placeholder": "Claude",
+    "badgeTheme": "徽章主题",
+    "light": "浅色",
+    "dark": "深色"
+  },
+  "preview": {
+    "title": "预览",
+    "lightBg": "浅色背景",
+    "darkBg": "深色背景"
+  },
+  "copy": {
+    "title": "获取您的徽章",
+    "directUrl": "直接链接",
+    "markdown": "Markdown",
+    "html": "HTML",
+    "copy": "复制",
+    "copied": "已复制！"
+  },
+    "footer": {
+    "poweredBy": "技术支持",
+    "inspiredBy": "灵感来自"
+  },
+  "categories": {
+    "model": "AI 模型",
+    "provider": "AI 提供商",
+    "application": "应用和工具"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "language": {
+    "en": "English",
+    "zh": "中文"
+  }
+}

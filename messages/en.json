@@ -1,0 +1,60 @@
+{
+  "common": {
+    "title": "Coding with AI Badge Generator",
+    "description": "Generate beautiful badges to showcase AI models, tools, and providers in your projects",
+    "github": "GitHub"
+  },
+  "hero": {
+    "title": "Create Beautiful AI Badges",
+    "subtitle": "Generate stylish badges to showcase the AI models, tools, and providers you use in your projects. Perfect for GitHub READMEs, documentation, and websites."
+  },
+  "config": {
+    "selectIcon": "Select Icon",
+    "category": "Category",
+    "selectCategory": "Select category...",
+    "searchCategory": "Search category...",
+    "name": "Name",
+    "selectName": "Select name...",
+    "searchName": "Search name...",
+    "noResults": "No results found.",
+    "customizeText": "Customize Text",
+    "line1": "Line 1 (top text)",
+    "line1Placeholder": "coding with",
+    "line2": "Line 2 (main text)",
+    "line2Placeholder": "Claude",
+    "badgeTheme": "Badge Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "preview": {
+    "title": "Preview",
+    "lightBg": "Light Background",
+    "darkBg": "Dark Background"
+  },
+  "copy": {
+    "title": "Get Your Badge",
+    "directUrl": "Direct URL",
+    "markdown": "Markdown",
+    "html": "HTML",
+    "copy": "Copy",
+    "copied": "Copied!"
+  },
+    "footer": {
+      "poweredBy": "Powered by",
+      "inspiredBy": "Inspired by"
+  },
+  "categories": {
+    "model": "AI Models",
+    "provider": "AI Providers",
+    "application": "Applications & Tools"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "en": "English",
+    "zh": "中文"
+  }
+}
