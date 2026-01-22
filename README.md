@@ -278,11 +278,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [shields.io](https://shields.io) for inspiration
 - [skillicons.dev](https://skillicons.dev) for design reference
 
-## 📞 Support
-
-- 📧 Email: support@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/coding-with-ai-badge/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/your-username/coding-with-ai-badge/discussions)
 
 ## 🔗 Related Projects
 
