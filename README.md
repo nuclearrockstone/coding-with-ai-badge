@@ -27,7 +27,7 @@ An online badge generator similar to [shields.io](https://shields.io) and [skill
 
 ### Web Interface
 
-Visit [https://cwab.nuclearrockstone.xyz.com](https://cwab.nuclearrockstone.xyz.com) to use the interactive badge generator.
+Visit [https://cwab.nuclearrockstone.xyz](https://cwab.nuclearrockstone.xyz) to use the interactive badge generator.
 
 ### API Usage
 
@@ -35,10 +35,10 @@ Generate badges directly via URL:
 
 ```bash
 # Basic badge
-https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude
+https://cwab.nuclearrockstone.xyz/api/badge?name=claude
 
 # Custom text and theme
-https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude&line1=powered%20by&line2=Claude%20AI&theme=dark
+https://cwab.nuclearrockstone.xyz/api/badge?name=claude&line1=powered%20by&line2=Claude%20AI&theme=dark
 ```
 
 ## 📖 API Documentation
@@ -68,20 +68,20 @@ GET /api/badge
 #### Basic Usage
 ```html
 <!-- Direct URL -->
-<img src="https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude" alt="Claude AI">
+<img src="https://cwab.nuclearrockstone.xyz/api/badge?name=claude" alt="Claude AI">
 
 <!-- Markdown -->
-![Claude AI](https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude)
+![Claude AI](https://cwab.nuclearrockstone.xyz/api/badge?name=claude)
 ```
 
 #### Custom Text
 ```html
-<img src="https://cwab.nuclearrockstone.xyz.com/api/badge?name=cursor&line1=powered%20by&line2=Cursor%20IDE" alt="Cursor IDE">
+<img src="https://cwab.nuclearrockstone.xyz/api/badge?name=cursor&line1=powered%20by&line2=Cursor%20IDE" alt="Cursor IDE">
 ```
 
 #### Dark Theme
 ```html
-<img src="https://cwab.nuclearrockstone.xyz.com/api/badge?name=openai&theme=dark" alt="OpenAI">
+<img src="https://cwab.nuclearrockstone.xyz/api/badge?name=openai&theme=dark" alt="OpenAI">
 ```
 
 ## 🛠️ Local Development
