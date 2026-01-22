@@ -6,6 +6,8 @@
 
 **[🇨🇳 中文](README.zh.md) | English**
 
+![Claude AI](https://cwab.nuclearrockstone.xyz/api/badge?name=claude)
+
 > Generate beautiful badges to showcase AI models, tools, and providers in your projects
 
 An online badge generator similar to [shields.io](https://shields.io) and [skillicons.dev](https://skillicons.dev), specifically designed for AI-related technologies. Create stylish badges for your GitHub READMEs, documentation, and websites.

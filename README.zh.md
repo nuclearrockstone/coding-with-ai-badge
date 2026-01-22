@@ -6,6 +6,8 @@
 
 **中文 | [🇺🇸 English](README.md)**
 
+![Claude AI](https://cwab.nuclearrockstone.xyz/api/badge?name=claude)
+
 > 生成精美的徽章，展示您项目中使用的 AI 模型、工具和提供商
 
 类似于 [shields.io](https://shields.io) 和 [skillicons.dev](https://skillicons.dev) 的在线徽章生成器，专为 AI 相关技术设计。为您的 GitHub README、文档和网站创建时尚的徽章。
@@ -33,10 +35,10 @@
 
 ```bash
 # 基础徽章
-https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude
+https://cwab.nuclearrockstone.xyz/api/badge?name=claude
 
 # 自定义文字和主题
-https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude&line1=powered%20by&line2=Claude%20AI&theme=dark
+https://cwab.nuclearrockstone.xyz/api/badge?name=claude&line1=powered%20by&line2=Claude%20AI&theme=dark
 ```
 
 ## 📖 API 文档
@@ -66,20 +68,20 @@ GET /api/badge
 #### 基础用法
 ```html
 <!-- 直接链接 -->
-<img src="https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude" alt="Claude AI">
+<img src="https://cwab.nuclearrockstone.xyz/api/badge?name=claude" alt="Claude AI">
 
 <!-- Markdown -->
-![Claude AI](https://cwab.nuclearrockstone.xyz.com/api/badge?name=claude)
+![Claude AI](https://cwab.nuclearrockstone.xyz/api/badge?name=claude)
 ```
 
 #### 自定义文字
 ```html
-<img src="https://cwab.nuclearrockstone.xyz.com/api/badge?name=cursor&line1=powered%20by&line2=Cursor%20IDE" alt="Cursor IDE">
+<img src="https://cwab.nuclearrockstone.xyz/api/badge?name=cursor&line1=powered%20by&line2=Cursor%20IDE" alt="Cursor IDE">
 ```
 
 #### 深色主题
 ```html
-<img src="https://cwab.nuclearrockstone.xyz.com/api/badge?name=openai&theme=dark" alt="OpenAI">
+<img src="https://cwab.nuclearrockstone.xyz/api/badge?name=openai&theme=dark" alt="OpenAI">
 ```
 
 ## 🛠️ 本地开发
