@@ -273,10 +273,17 @@ function generateMultiPathIcon(
   size: number,
   iconId: string
 ): string {
-  // 原始 viewBox 是 0 0 24 24，我们需要缩放和居中
-  const scale = size / 24
-  const offsetX = centerX - size / 2
-  const offsetY = centerY - size / 2
+  // Parse viewBox to get the original icon dimensions
+  // viewBox format: "minX minY width height" (e.g., "0 0 24 24" or "0 0 320 320")
+  const viewBoxParts = iconData.viewBox.split(' ').map(Number)
+  const viewBoxWidth = viewBoxParts[2] || 24
+  const viewBoxHeight = viewBoxParts[3] || 24
+  const maxDimension = Math.max(viewBoxWidth, viewBoxHeight)
+  
+  // Scale the icon to fit within the target size
+  const scale = size / maxDimension
+  const offsetX = centerX - (viewBoxWidth * scale) / 2
+  const offsetY = centerY - (viewBoxHeight * scale) / 2
   
   let defsContent = ''
   const gradientIdMap: Record<string, string> = {}
