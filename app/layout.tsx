@@ -53,6 +53,27 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    title: SITE_CONFIG.title,
+    description: SITE_CONFIG.description,
+    siteName: SITE_CONFIG.name,
+    images: [
+      {
+        url: '/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'Coding with AI badge preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_CONFIG.title,
+    description: SITE_CONFIG.description,
+    images: ['/api/og'],
+  },
 }
 
 export const viewport: Viewport = {
