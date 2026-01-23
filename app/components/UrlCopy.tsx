@@ -67,7 +67,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       {/* Section Header */}
       <div className="flex items-center gap-2">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -78,23 +78,23 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
       </div>
 
       {/* URL */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5 sm:gap-2">
         <div className="flex items-center justify-between">
           <label className="text-xs font-medium text-muted-foreground">{t.directUrl}</label>
           <button
             onClick={() => handleCopy('url')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="flex cursor-pointer items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:gap-1.5 sm:px-3 sm:py-1.5"
           >
             {copiedType === 'url' ? (
               <>
-                <svg className="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 text-green-500 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 {t.copied}
               </>
             ) : (
               <>
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 {t.copy}
@@ -102,29 +102,29 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
             )}
           </button>
         </div>
-        <div className="overflow-x-auto rounded-lg bg-muted p-3">
+        <div className="overflow-x-auto rounded-lg bg-muted p-2 sm:p-3">
           <code className="whitespace-nowrap text-xs text-muted-foreground">{formats.url}</code>
         </div>
       </div>
 
       {/* Markdown */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5 sm:gap-2">
         <div className="flex items-center justify-between">
           <label className="text-xs font-medium text-muted-foreground">{t.markdown}</label>
           <button
             onClick={() => handleCopy('markdown')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="flex cursor-pointer items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:gap-1.5 sm:px-3 sm:py-1.5"
           >
             {copiedType === 'markdown' ? (
               <>
-                <svg className="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 text-green-500 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 {t.copied}
               </>
             ) : (
               <>
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 {t.copy}
@@ -132,29 +132,29 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
             )}
           </button>
         </div>
-        <div className="overflow-x-auto rounded-lg bg-muted p-3">
+        <div className="overflow-x-auto rounded-lg bg-muted p-2 sm:p-3">
           <code className="whitespace-nowrap text-xs text-muted-foreground">{formats.markdown}</code>
         </div>
       </div>
 
       {/* HTML */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5 sm:gap-2">
         <div className="flex items-center justify-between">
           <label className="text-xs font-medium text-muted-foreground">{t.html}</label>
           <button
             onClick={() => handleCopy('html')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="flex cursor-pointer items-center gap-1 rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:gap-1.5 sm:px-3 sm:py-1.5"
           >
             {copiedType === 'html' ? (
               <>
-                <svg className="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 text-green-500 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 {t.copied}
               </>
             ) : (
               <>
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 {t.copy}
@@ -162,7 +162,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
             )}
           </button>
         </div>
-        <div className="overflow-x-auto rounded-lg bg-muted p-3">
+        <div className="overflow-x-auto rounded-lg bg-muted p-2 sm:p-3">
           <code className="whitespace-nowrap text-xs text-muted-foreground">{formats.html}</code>
         </div>
       </div>

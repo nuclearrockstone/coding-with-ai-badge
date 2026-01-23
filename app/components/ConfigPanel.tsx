@@ -76,15 +76,15 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
   const selectedIcon = icons.find((icon) => icon.id === config.name)
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       {/* Section: Select Icon */}
-      <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground/70 sm:text-sm">
           {t.selectIcon}
         </h3>
 
         {/* Category Selector */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
           <label className="text-xs font-medium text-muted-foreground">{t.category}</label>
           <Popover open={categoryOpen} onOpenChange={setCategoryOpen}>
             <PopoverTrigger asChild>
@@ -92,7 +92,7 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
                 variant="outline"
                 role="combobox"
                 aria-expanded={categoryOpen}
-                className="w-full cursor-pointer justify-between"
+                className="w-full cursor-pointer justify-between text-sm"
               >
                 {t.categories[selectedCategory] || CATEGORY_MAP[selectedCategory]}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -127,7 +127,7 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
         </div>
 
         {/* Name Selector */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
           <label className="text-xs font-medium text-muted-foreground">{t.name}</label>
           <Popover open={nameOpen} onOpenChange={setNameOpen}>
             <PopoverTrigger asChild>
@@ -135,12 +135,12 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
                 variant="outline"
                 role="combobox"
                 aria-expanded={nameOpen}
-                className="w-full cursor-pointer justify-between"
+                className="w-full cursor-pointer justify-between text-sm"
               >
                 <span className="flex items-center gap-2 truncate">
                   {selectedIcon && (
                     <span
-                      className="h-3 w-3 rounded-full"
+                      className="h-3 w-3 shrink-0 rounded-full"
                       style={{ backgroundColor: selectedIcon.color }}
                     />
                   )}
@@ -183,13 +183,13 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
       </div>
 
       {/* Section: Customize Text */}
-      <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground/70 sm:text-sm">
           {t.customizeText}
         </h3>
 
         {/* Line 1 */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
           <label htmlFor="line1" className="text-xs font-medium text-muted-foreground">
             {t.line1}
           </label>
@@ -199,12 +199,12 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
             value={config.line1}
             onChange={(e) => onConfigChange({ ...config, line1: e.target.value })}
             placeholder={t.line1Placeholder}
-            className="rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+            className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 sm:px-4 sm:py-2.5"
           />
         </div>
 
         {/* Line 2 */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
           <label htmlFor="line2" className="text-xs font-medium text-muted-foreground">
             {t.line2}
           </label>
@@ -214,23 +214,23 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
             value={config.line2}
             onChange={(e) => onConfigChange({ ...config, line2: e.target.value })}
             placeholder={t.line2Placeholder}
-            className="rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+            className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 sm:px-4 sm:py-2.5"
           />
         </div>
       </div>
 
       {/* Section: Badge Theme */}
-      <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground/70 sm:text-sm">
           {t.badgeTheme}
         </h3>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
           <Button
             variant={config.theme === 'light' ? 'default' : 'outline'}
             onClick={() => onConfigChange({ ...config, theme: 'light' })}
-            className="flex-1 cursor-pointer"
+            className="flex-1 cursor-pointer text-xs sm:text-sm"
           >
-            <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="mr-1.5 h-4 w-4 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
             {t.light}
@@ -238,9 +238,9 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
           <Button
             variant={config.theme === 'dark' ? 'default' : 'outline'}
             onClick={() => onConfigChange({ ...config, theme: 'dark' })}
-            className="flex-1 cursor-pointer"
+            className="flex-1 cursor-pointer text-xs sm:text-sm"
           >
-            <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="mr-1.5 h-4 w-4 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
             </svg>
             {t.dark}
