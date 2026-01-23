@@ -67,6 +67,7 @@ interface IconPathInfo {
   d: string
   fill?: string
   fillVar?: string
+  useFillId?: boolean  // Path uses single gradient from useFillId hook
   fillRule?: string
   opacity?: number
 }
@@ -82,6 +83,7 @@ interface IconPathData {
   defs: IconDefs | null
   monoPath?: string
   colorPrimary?: string
+  usesSingleGradient?: boolean  // Icon uses useFillId hook for single gradient
 }
 
 interface BadgeConfig {
@@ -317,15 +319,18 @@ function generateMultiPathIcon(
     if (overrideFillColor) {
       // Use override color (for primary or contrast modes)
       fill = overrideFillColor
+    } else if (path.useFillId && gradientIdMap['single']) {
+      // Use single gradient from useFillId
+      fill = `url(#${gradientIdMap['single']})`
     } else if (path.fillVar && gradientIdMap[path.fillVar]) {
       // Use gradient reference
       fill = `url(#${gradientIdMap[path.fillVar]})`
-    } else if (path.fill) {
-      // Use original fill color
+    } else if (path.fill && path.fill !== 'currentColor') {
+      // Use original fill color (except currentColor which needs to be resolved)
       fill = path.fill
     } else {
-      // Fallback to currentColor
-      fill = 'currentColor'
+      // For currentColor or missing fill, use colorPrimary or fallback
+      fill = iconData.colorPrimary || 'currentColor'
     }
     
     let pathAttrs = `d="${path.d}" fill="${fill}"`
