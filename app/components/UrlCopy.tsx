@@ -2,10 +2,11 @@
 
 import { useState, useSyncExternalStore } from 'react'
 
-import type { BadgeConfig } from '@/app/lib/types'
+import type { BadgeConfig, AdvancedColorConfig } from '@/app/lib/types'
 
 interface UrlCopyProps {
   config: BadgeConfig
+  advancedColors?: AdvancedColorConfig
   translations: {
     title: string
     directUrl: string
@@ -25,7 +26,7 @@ function useOrigin(): string {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 
-export function UrlCopy({ config, translations: t }: UrlCopyProps) {
+export function UrlCopy({ config, advancedColors = {}, translations: t }: UrlCopyProps) {
   const [copiedType, setCopiedType] = useState<string | null>(null)
   const origin = useOrigin()
 
@@ -42,6 +43,17 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
     if (config.theme === 'dark') {
       params.set('theme', 'dark')
     }
+    if (config.colorMode && config.colorMode !== 'original') {
+      params.set('colorMode', config.colorMode)
+    }
+    // Add advanced colors
+    if (advancedColors.background) params.set('background', advancedColors.background)
+    if (advancedColors.border) params.set('border', advancedColors.border)
+    if (advancedColors.iconBg) params.set('iconBg', advancedColors.iconBg)
+    if (advancedColors.text1) params.set('text1', advancedColors.text1)
+    if (advancedColors.text2) params.set('text2', advancedColors.text2)
+    if (advancedColors.iconColor) params.set('iconColor', advancedColors.iconColor)
+    
     // Use actual origin or fallback for SSR
     const baseUrl = origin || 'https://your-domain.com'
     return `${baseUrl}/api/badge?${params.toString()}`

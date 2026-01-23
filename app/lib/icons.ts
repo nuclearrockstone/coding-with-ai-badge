@@ -18,11 +18,11 @@ export const CATEGORY_MAP = {
 
 export type IconCategory = keyof typeof CATEGORY_MAP
 
-// 从 @lobehub/icons 导入 toc
-import toc from '@lobehub/icons/es/toc'
+// 使用本地 JSON 文件代替直接从 @lobehub/icons 导入以避免依赖冲突
+import iconToc from './icon-toc.json'
 
 // 转换 toc 数据为我们需要的格式
-export const ICONS_DATA: IconInfo[] = (toc as Array<{
+export const ICONS_DATA: IconInfo[] = (iconToc as Array<{
   id: string
   title: string
   fullTitle: string

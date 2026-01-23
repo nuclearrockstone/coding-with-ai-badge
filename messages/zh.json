@@ -24,7 +24,26 @@
     "line2Placeholder": "Claude",
     "badgeTheme": "徽章主题",
     "light": "浅色",
-    "dark": "深色"
+    "dark": "深色",
+    "iconColorMode": "图标颜色",
+    "colorModeOriginal": "原色",
+    "colorModePrimary": "主色",
+    "colorModeContrast": "对比色"
+  },
+  "advanced": {
+    "advancedSettings": "高级设置",
+    "customColors": "自定义颜色",
+    "background": "背景色",
+    "border": "边框色",
+    "iconBg": "图标背景",
+    "text1Color": "第一行颜色",
+    "text2Color": "第二行颜色",
+    "iconColor": "图标颜色",
+    "reset": "重置",
+    "active": "已启用",
+    "guideTitle": "高级设置已启用",
+    "guideMessage": "自定义颜色将覆盖默认主题设置。点击\"重置\"可恢复默认值。",
+    "dontShowAgain": "不再提示"
   },
   "preview": {
     "title": "预览",

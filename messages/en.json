@@ -24,7 +24,26 @@
     "line2Placeholder": "Claude",
     "badgeTheme": "Badge Theme",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "iconColorMode": "Icon Color",
+    "colorModeOriginal": "Original",
+    "colorModePrimary": "Primary",
+    "colorModeContrast": "Contrast"
+  },
+  "advanced": {
+    "advancedSettings": "Advanced Settings",
+    "customColors": "Custom Colors",
+    "background": "Background",
+    "border": "Border",
+    "iconBg": "Icon Background",
+    "text1Color": "Line 1 Color",
+    "text2Color": "Line 2 Color",
+    "iconColor": "Icon Color",
+    "reset": "Reset",
+    "active": "Active",
+    "guideTitle": "Advanced Settings Enabled",
+    "guideMessage": "Custom colors will override the default theme settings. Click \"Reset\" to restore defaults.",
+    "dontShowAgain": "Don't show again"
   },
   "preview": {
     "title": "Preview",
