@@ -161,8 +161,6 @@ export function AdvancedSettings({
     { key: 'iconColor' as const, label: t.iconColor, defaultValue: '' },
   ]
 
-  const hasCustomColors = Object.values(advancedColors).some(v => v !== undefined && v !== '')
-
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
       {/* Toggle Button */}

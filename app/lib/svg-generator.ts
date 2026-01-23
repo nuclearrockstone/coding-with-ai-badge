@@ -1,5 +1,5 @@
-// SVG 生成逻辑 - 使用 @lobehub/icons 的真实数据
-import toc from '@lobehub/icons/es/toc'
+// SVG 生成逻辑 - 使用本地 JSON 数据
+import iconToc from './icon-toc.json'
 
 import iconPathsData from './icon-paths.json'
 import type { IconColorMode } from './types'
@@ -109,9 +109,9 @@ interface BadgeConfig {
 // 图标路径数据
 const iconPaths = iconPathsData as Record<string, IconPathData>
 
-// 从 toc 获取图标信息
+// 从本地 toc 数据获取图标信息
 function getIconData(name: string): IconData | null {
-  const icons = toc as IconData[]
+  const icons = iconToc as IconData[]
   return icons.find((icon) => 
     icon.id.toLowerCase() === name.toLowerCase() ||
     icon.title.toLowerCase() === name.toLowerCase()
