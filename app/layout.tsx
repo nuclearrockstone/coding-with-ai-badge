@@ -1,21 +1,8 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, DM_Sans } from 'next/font/google'
 
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import { SITE_CONFIG } from '@/app/lib/types'
 import './globals.css'
-
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
-
-const dmSans = DM_Sans({
-  variable: '--font-dm-sans',
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-})
 
 const siteTitle = 'Coding with AI Badge Generator'
 const siteDescription = 'Generate beautiful badges to showcase AI models, tools, and providers in your projects. Perfect for GitHub READMEs, documentation, and websites. Similar to shields.io and skillicons.dev.'
@@ -139,7 +126,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans antialiased`}
+        className="font-sans antialiased"
       >
         <ThemeProvider
           attribute="class"

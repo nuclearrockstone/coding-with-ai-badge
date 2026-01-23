@@ -26,6 +26,9 @@ export function BadgePreview({ config, translations: t }: BadgePreviewProps) {
     if (config.theme === 'dark') {
       params.set('theme', 'dark')
     }
+    if (config.colorMode && config.colorMode !== 'original') {
+      params.set('colorMode', config.colorMode)
+    }
     return `/api/badge?${params.toString()}`
   }, [config])
 

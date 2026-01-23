@@ -33,9 +33,16 @@ interface IconData {
   group: string
 }
 
-interface IconPathData {
-  path: string
+interface IconPathInfo {
+  d: string
+  fill?: string
+}
+
+interface NewIconPathData {
   viewBox: string
+  paths: IconPathInfo[]
+  monoPath?: string
+  colorPrimary?: string
 }
 
 // Get icon data from toc
@@ -47,11 +54,18 @@ function getIconData(name: string): IconData | null {
   ) || null
 }
 
-// Get icon SVG path
-function getIconPath(iconId: string): string | null {
-  const iconPaths = iconPathsData as Record<string, IconPathData>
+// Get icon mono path (for single-color rendering in OG image)
+function getIconMonoPath(iconId: string): string | null {
+  const iconPaths = iconPathsData as Record<string, NewIconPathData>
   const data = iconPaths[iconId.toLowerCase()]
-  return data?.path || null
+  // Use monoPath if available, otherwise combine all paths
+  if (data?.monoPath) {
+    return data.monoPath
+  }
+  if (data?.paths && data.paths.length > 0) {
+    return data.paths.map(p => p.d).join(' ')
+  }
+  return null
 }
 
 export async function GET(request: NextRequest): Promise<Response> {
@@ -64,7 +78,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     // Get real icon data
     const iconData = getIconData(name)
     const iconId = iconData?.id || name
-    const iconPath = getIconPath(iconId)
+    const iconPath = getIconMonoPath(iconId)
     const iconColor = iconData?.color || '#6B7280'
     const displayName = searchParams.get('line2') || iconData?.fullTitle || iconData?.title || name
 

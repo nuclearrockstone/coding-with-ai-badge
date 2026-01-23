@@ -42,6 +42,9 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
     if (config.theme === 'dark') {
       params.set('theme', 'dark')
     }
+    if (config.colorMode && config.colorMode !== 'original') {
+      params.set('colorMode', config.colorMode)
+    }
     // Use actual origin or fallback for SSR
     const baseUrl = origin || 'https://your-domain.com'
     return `${baseUrl}/api/badge?${params.toString()}`

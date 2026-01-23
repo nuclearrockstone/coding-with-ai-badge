@@ -24,7 +24,11 @@
     "line2Placeholder": "Claude",
     "badgeTheme": "Badge Theme",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "iconColorMode": "Icon Color",
+    "colorModeOriginal": "Original",
+    "colorModePrimary": "Primary",
+    "colorModeContrast": "Contrast"
   },
   "preview": {
     "title": "Preview",

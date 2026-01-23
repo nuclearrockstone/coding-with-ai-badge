@@ -1,9 +1,13 @@
+// Icon color mode options
+export type IconColorMode = 'original' | 'primary' | 'contrast'
+
 // Badge 配置类型
 export interface BadgeConfig {
   name: string
   line1: string
   line2: string
   theme: 'light' | 'dark'
+  colorMode: IconColorMode
 }
 
 // 默认配置
@@ -12,6 +16,7 @@ export const DEFAULT_CONFIG: BadgeConfig = {
   line1: 'coding with',
   line2: 'Claude',
   theme: 'light',
+  colorMode: 'original',
 }
 
 // 站点配置

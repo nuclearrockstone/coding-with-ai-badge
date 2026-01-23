@@ -47,6 +47,10 @@ interface ConfigPanelProps {
     badgeTheme: string
     light: string
     dark: string
+    iconColorMode: string
+    colorModeOriginal: string
+    colorModePrimary: string
+    colorModeContrast: string
     categories: Record<string, string>
   }
 }
@@ -244,6 +248,45 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
             </svg>
             {t.dark}
+          </Button>
+        </div>
+      </div>
+
+      {/* Section: Icon Color Mode */}
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground/70 sm:text-sm">
+          {t.iconColorMode}
+        </h3>
+        <div className="flex flex-wrap gap-2 sm:gap-3">
+          <Button
+            variant={config.colorMode === 'original' ? 'default' : 'outline'}
+            onClick={() => onConfigChange({ ...config, colorMode: 'original' })}
+            className="flex-1 cursor-pointer text-xs sm:text-sm"
+          >
+            <svg className="mr-1.5 h-4 w-4 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+            {t.colorModeOriginal}
+          </Button>
+          <Button
+            variant={config.colorMode === 'primary' ? 'default' : 'outline'}
+            onClick={() => onConfigChange({ ...config, colorMode: 'primary' })}
+            className="flex-1 cursor-pointer text-xs sm:text-sm"
+          >
+            <svg className="mr-1.5 h-4 w-4 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+            {t.colorModePrimary}
+          </Button>
+          <Button
+            variant={config.colorMode === 'contrast' ? 'default' : 'outline'}
+            onClick={() => onConfigChange({ ...config, colorMode: 'contrast' })}
+            className="flex-1 cursor-pointer text-xs sm:text-sm"
+          >
+            <svg className="mr-1.5 h-4 w-4 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            {t.colorModeContrast}
           </Button>
         </div>
       </div>

@@ -24,7 +24,11 @@
     "line2Placeholder": "Claude",
     "badgeTheme": "徽章主题",
     "light": "浅色",
-    "dark": "深色"
+    "dark": "深色",
+    "iconColorMode": "图标颜色",
+    "colorModeOriginal": "原色",
+    "colorModePrimary": "主色",
+    "colorModeContrast": "对比色"
   },
   "preview": {
     "title": "预览",

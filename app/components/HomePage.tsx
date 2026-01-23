@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Github } from 'lucide-react'
 
 import { BadgePreview } from '@/app/components/BadgePreview'
@@ -9,9 +9,9 @@ import { UrlCopy } from '@/app/components/UrlCopy'
 import { ThemeToggle } from '@/app/components/ThemeToggle'
 import { LanguageToggle } from '@/app/components/LanguageToggle'
 import { DEFAULT_CONFIG, SITE_CONFIG } from '@/app/lib/types'
-import { getIconCount } from '@/app/lib/icons'
+import { getIconCount, getIconById } from '@/app/lib/icons'
 
-import type { BadgeConfig } from '@/app/lib/types'
+import type { BadgeConfig, IconColorMode } from '@/app/lib/types'
 
 // 翻译类型
 interface Messages {
@@ -34,6 +34,10 @@ interface Messages {
     badgeTheme: string
     light: string
     dark: string
+    iconColorMode: string
+    colorModeOriginal: string
+    colorModePrimary: string
+    colorModeContrast: string
   }
   preview: { title: string; lightBg: string; darkBg: string }
   copy: { title: string; directUrl: string; markdown: string; html: string; copy: string; copied: string }
@@ -45,13 +49,67 @@ export function HomePage() {
   const [config, setConfig] = useState<BadgeConfig>(DEFAULT_CONFIG)
   const [messages, setMessages] = useState<Messages | null>(null)
   const [iconCount, setIconCount] = useState(0)
+  const [isInitialized, setIsInitialized] = useState(false)
 
+  // Parse URL parameters on mount and set initial config
   useEffect(() => {
     // 获取语言设置
     const locale = localStorage.getItem('locale') || 'en'
     import(`@/messages/${locale}.json`).then((m) => setMessages(m.default))
     setIconCount(getIconCount())
+
+    // Parse URL parameters
+    const urlParams = new URLSearchParams(window.location.search)
+    const name = urlParams.get('name')
+    const line1 = urlParams.get('line1')
+    const line2 = urlParams.get('line2')
+    const theme = urlParams.get('theme')
+    const colorMode = urlParams.get('colorMode')
+
+    if (name || line1 || line2 || theme || colorMode) {
+      const iconData = name ? getIconById(name) : null
+      const newConfig: BadgeConfig = {
+        name: name || DEFAULT_CONFIG.name,
+        line1: line1 || DEFAULT_CONFIG.line1,
+        line2: line2 || (iconData?.fullTitle || iconData?.title || name || DEFAULT_CONFIG.line2),
+        theme: theme === 'dark' ? 'dark' : 'light',
+        colorMode: (['original', 'primary', 'contrast'].includes(colorMode || '') 
+          ? colorMode as IconColorMode 
+          : 'original'),
+      }
+      setConfig(newConfig)
+    }
+    setIsInitialized(true)
   }, [])
+
+  // Update URL when config changes
+  const updateUrl = useCallback((newConfig: BadgeConfig) => {
+    if (!isInitialized) return
+
+    const params = new URLSearchParams()
+    params.set('name', newConfig.name)
+    if (newConfig.line1 !== DEFAULT_CONFIG.line1) {
+      params.set('line1', newConfig.line1)
+    }
+    if (newConfig.line2 !== newConfig.name) {
+      params.set('line2', newConfig.line2)
+    }
+    if (newConfig.theme === 'dark') {
+      params.set('theme', 'dark')
+    }
+    if (newConfig.colorMode && newConfig.colorMode !== 'original') {
+      params.set('colorMode', newConfig.colorMode)
+    }
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`
+    window.history.replaceState(null, '', newUrl)
+  }, [isInitialized])
+
+  // Handle config change
+  const handleConfigChange = useCallback((newConfig: BadgeConfig) => {
+    setConfig(newConfig)
+    updateUrl(newConfig)
+  }, [updateUrl])
 
   if (!messages) {
     return (
@@ -112,7 +170,7 @@ export function HomePage() {
           <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
             <ConfigPanel
               config={config}
-              onConfigChange={setConfig}
+              onConfigChange={handleConfigChange}
               translations={{
                 ...messages.config,
                 categories: messages.categories,

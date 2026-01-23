@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 
 import { generateBadgeSvg } from '@/app/lib/svg-generator'
+import type { IconColorMode } from '@/app/lib/svg-generator'
 
 export async function GET(request: NextRequest): Promise<Response> {
   try {
@@ -9,6 +10,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     const line1 = searchParams.get('line1') || undefined
     const line2 = searchParams.get('line2') || undefined
     const theme = searchParams.get('theme') as 'light' | 'dark' | null
+    const colorMode = searchParams.get('colorMode') as IconColorMode | null
 
     if (!name) {
       return new Response('Missing required parameter: name', { 
@@ -22,6 +24,9 @@ export async function GET(request: NextRequest): Promise<Response> {
       line1,
       line2,
       theme: theme === 'dark' ? 'dark' : 'light',
+      colorMode: colorMode && ['original', 'primary', 'contrast'].includes(colorMode) 
+        ? colorMode 
+        : 'original',
     })
 
     return new Response(svg, {

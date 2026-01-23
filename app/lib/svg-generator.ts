@@ -3,11 +3,15 @@ import toc from '@lobehub/icons/es/toc'
 
 import iconPathsData from './icon-paths.json'
 
+// Color mode options for icon fill
+export type IconColorMode = 'original' | 'primary' | 'contrast'
+
 export interface BadgeParams {
   name: string
   line1?: string
   line2?: string
   theme?: 'light' | 'dark'
+  colorMode?: IconColorMode
 }
 
 interface IconData {
@@ -19,19 +23,65 @@ interface IconData {
   group: string
 }
 
+interface GradientStop {
+  offset: string
+  stopColor: string
+  stopOpacity?: number
+}
+
+interface LinearGradient {
+  type: 'linear'
+  idVar?: string
+  x1?: string
+  y1?: string
+  x2?: string
+  y2?: string
+  stops: GradientStop[]
+}
+
+interface RadialGradient {
+  type: 'radial'
+  idVar?: string
+  cx?: string
+  cy?: string
+  r?: string
+  fx?: string
+  fy?: string
+  gradientTransform?: string
+  stops: GradientStop[]
+}
+
+interface IconPathInfo {
+  d: string
+  fill?: string
+  fillVar?: string
+  fillRule?: string
+  opacity?: number
+}
+
+interface IconDefs {
+  linearGradients: LinearGradient[]
+  radialGradients: RadialGradient[]
+}
+
 interface IconPathData {
-  path: string
   viewBox: string
+  paths: IconPathInfo[]
+  defs: IconDefs | null
+  monoPath?: string
+  colorPrimary?: string
 }
 
 interface BadgeConfig {
   iconId: string
   iconColor: string
+  colorPrimary: string
   iconTitle: string
-  iconPath: string | null
+  iconPathData: IconPathData | null
   line1: string
   line2: string
   theme: 'light' | 'dark'
+  colorMode: IconColorMode
 }
 
 // 图标路径数据
@@ -46,25 +96,28 @@ function getIconData(name: string): IconData | null {
   ) || null
 }
 
-// 获取图标 SVG 路径
-function getIconPath(iconId: string): string | null {
+// 获取图标 SVG 数据
+function getIconPathData(iconId: string): IconPathData | null {
   const data = iconPaths[iconId.toLowerCase()]
-  return data?.path || null
+  return data || null
 }
 
 // 获取 badge 配置
 function getBadgeConfig(params: BadgeParams): BadgeConfig {
   const iconData = getIconData(params.name)
   const iconId = iconData?.id || params.name
+  const iconPathData = getIconPathData(iconId)
   
   return {
     iconId,
     iconColor: iconData?.color || '#6B7280',
+    colorPrimary: iconPathData?.colorPrimary || iconData?.color || '#6B7280',
     iconTitle: iconData?.title || params.name,
-    iconPath: getIconPath(iconId),
+    iconPathData,
     line1: params.line1 || 'coding with',
     line2: params.line2 || iconData?.fullTitle || iconData?.title || params.name,
     theme: params.theme || 'light',
+    colorMode: params.colorMode || 'original',
   }
 }
 
@@ -76,6 +129,7 @@ const THEMES = {
     iconBg: '#F3F4F6',
     text1: '#6B7280',
     text2: '#1F2937',
+    contrastIcon: '#000000',
   },
   dark: {
     background: '#1F2937',
@@ -83,6 +137,7 @@ const THEMES = {
     iconBg: '#374151',
     text1: '#9CA3AF',
     text2: '#F9FAFB',
+    contrastIcon: '#FFFFFF',
   },
 }
 
@@ -123,13 +178,25 @@ export async function generateBadgeSvg(params: BadgeParams): Promise<string> {
   const line1Y = 26
   const line2Y = 44
 
+  // Determine fill color based on colorMode
+  const getFillColor = (): string | null => {
+    switch (config.colorMode) {
+      case 'primary':
+        return config.colorPrimary
+      case 'contrast':
+        return theme.contrastIcon
+      case 'original':
+      default:
+        return null // Use original colors from icon data
+    }
+  }
+
+  const overrideFillColor = getFillColor()
+
   // 生成图标内容 - 使用真实 SVG 路径或退回到首字母
-  // 如果为 dark 主题，则将图标填充直接设为白色以保证可见性
-  const iconFillColor = config.theme === 'dark' ? '#FFFFFF' : config.iconColor
-  
-  const iconContent = config.iconPath
-    ? generateRealIcon(config.iconPath, iconFillColor, iconCenterX, iconCenterY, iconDisplaySize)
-    : generateFallbackIcon(config.iconTitle, iconFillColor, iconCenterX, iconCenterY, iconDisplaySize)
+  const iconContent = config.iconPathData
+    ? generateMultiPathIcon(config.iconPathData, overrideFillColor, iconCenterX, iconCenterY, iconDisplaySize, config.iconId)
+    : generateFallbackIcon(config.iconTitle, config.iconColor, iconCenterX, iconCenterY, iconDisplaySize)
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">
   <defs>
@@ -160,21 +227,92 @@ export async function generateBadgeSvg(params: BadgeParams): Promise<string> {
   return svg
 }
 
-// 生成真实图标（使用 SVG path）
-function generateRealIcon(
-  pathData: string,
-  color: string,
+// Generate multi-path icon with gradients support
+function generateMultiPathIcon(
+  iconData: IconPathData,
+  overrideFillColor: string | null,
   centerX: number,
   centerY: number,
-  size: number
+  size: number,
+  iconId: string
 ): string {
   // 原始 viewBox 是 0 0 24 24，我们需要缩放和居中
   const scale = size / 24
   const offsetX = centerX - size / 2
   const offsetY = centerY - size / 2
   
+  let defsContent = ''
+  const gradientIdMap: Record<string, string> = {}
+  
+  // Generate gradient definitions if needed and not overriding colors
+  if (iconData.defs && !overrideFillColor) {
+    const uniquePrefix = `icon-${iconId.toLowerCase()}-`
+    
+    // Generate linear gradients
+    for (const lg of iconData.defs.linearGradients) {
+      if (!lg.idVar) continue // Skip gradients without idVar
+      const gradientId = `${uniquePrefix}${lg.idVar}`
+      gradientIdMap[lg.idVar] = gradientId
+      
+      const stops = lg.stops.map(stop => 
+        `<stop offset="${stop.offset}" stop-color="${stop.stopColor}"${stop.stopOpacity !== undefined ? ` stop-opacity="${stop.stopOpacity}"` : ''}/>`
+      ).join('')
+      
+      defsContent += `<linearGradient id="${gradientId}" x1="${lg.x1 || '0%'}" y1="${lg.y1 || '0%'}" x2="${lg.x2 || '100%'}" y2="${lg.y2 || '100%'}">${stops}</linearGradient>`
+    }
+    
+    // Generate radial gradients
+    for (const rg of iconData.defs.radialGradients) {
+      if (!rg.idVar) continue // Skip gradients without idVar
+      const gradientId = `${uniquePrefix}${rg.idVar}`
+      gradientIdMap[rg.idVar] = gradientId
+      
+      const stops = rg.stops.map(stop => 
+        `<stop offset="${stop.offset}" stop-color="${stop.stopColor}"${stop.stopOpacity !== undefined ? ` stop-opacity="${stop.stopOpacity}"` : ''}/>`
+      ).join('')
+      
+      let attrs = `id="${gradientId}"`
+      if (rg.cx) attrs += ` cx="${rg.cx}"`
+      if (rg.cy) attrs += ` cy="${rg.cy}"`
+      if (rg.r) attrs += ` r="${rg.r}"`
+      if (rg.fx) attrs += ` fx="${rg.fx}"`
+      if (rg.fy) attrs += ` fy="${rg.fy}"`
+      if (rg.gradientTransform) attrs += ` gradientTransform="${rg.gradientTransform}"`
+      
+      defsContent += `<radialGradient ${attrs}>${stops}</radialGradient>`
+    }
+  }
+  
+  // Generate paths
+  const pathsContent = iconData.paths.map(path => {
+    let fill: string
+    
+    if (overrideFillColor) {
+      // Use override color (for primary or contrast modes)
+      fill = overrideFillColor
+    } else if (path.fillVar && gradientIdMap[path.fillVar]) {
+      // Use gradient reference
+      fill = `url(#${gradientIdMap[path.fillVar]})`
+    } else if (path.fill) {
+      // Use original fill color
+      fill = path.fill
+    } else {
+      // Fallback to currentColor
+      fill = 'currentColor'
+    }
+    
+    let pathAttrs = `d="${path.d}" fill="${fill}"`
+    if (path.fillRule) pathAttrs += ` fill-rule="${path.fillRule}"`
+    if (path.opacity !== undefined) pathAttrs += ` opacity="${path.opacity}"`
+    
+    return `<path ${pathAttrs}/>`
+  }).join('\n    ')
+  
+  const defsSection = defsContent ? `<defs>${defsContent}</defs>` : ''
+  
   return `<g transform="translate(${offsetX}, ${offsetY}) scale(${scale})">
-    <path d="${pathData}" fill="${color}" fill-rule="evenodd"/>
+    ${defsSection}
+    ${pathsContent}
   </g>`
 }
 
