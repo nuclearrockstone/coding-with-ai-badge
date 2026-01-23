@@ -40,7 +40,10 @@
     "text2Color": "Line 2 Color",
     "iconColor": "Icon Color",
     "reset": "Reset",
-    "active": "Active"
+    "active": "Active",
+    "guideTitle": "Advanced Settings Enabled",
+    "guideMessage": "Custom colors will override the default theme settings. Click \"Reset\" to restore defaults.",
+    "dontShowAgain": "Don't show again"
   },
   "preview": {
     "title": "Preview",

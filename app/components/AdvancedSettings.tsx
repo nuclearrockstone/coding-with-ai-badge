@@ -1,11 +1,13 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, X, Info } from 'lucide-react'
 import * as Popover from '@radix-ui/react-popover'
 
 import { Button } from '@/app/components/ui/button'
 import type { BadgeConfig, AdvancedColorConfig } from '@/app/lib/types'
+
+const GUIDE_DISMISSED_KEY = 'advanced-settings-guide-dismissed'
 
 interface AdvancedSettingsProps {
   config: BadgeConfig
@@ -22,6 +24,9 @@ interface AdvancedSettingsProps {
     iconColor: string
     reset: string
     active: string
+    guideTitle: string
+    guideMessage: string
+    dontShowAgain: string
   }
 }
 
@@ -90,6 +95,33 @@ export function AdvancedSettings({
   translations: t,
 }: AdvancedSettingsProps) {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [showGuide, setShowGuide] = React.useState(false)
+  const [guideDismissed, setGuideDismissed] = React.useState(true)
+  
+  // Check localStorage on mount to see if guide was dismissed
+  React.useEffect(() => {
+    const dismissed = localStorage.getItem(GUIDE_DISMISSED_KEY) === 'true'
+    setGuideDismissed(dismissed)
+  }, [])
+  
+  // Show guide when custom colors are first set
+  const hasCustomColors = Object.values(advancedColors).some(v => v !== undefined && v !== '')
+  
+  React.useEffect(() => {
+    if (hasCustomColors && !guideDismissed) {
+      setShowGuide(true)
+    }
+  }, [hasCustomColors, guideDismissed])
+  
+  const handleDismissGuide = () => {
+    setShowGuide(false)
+  }
+  
+  const handleDontShowAgain = () => {
+    localStorage.setItem(GUIDE_DISMISSED_KEY, 'true')
+    setGuideDismissed(true)
+    setShowGuide(false)
+  }
 
   const handleColorChange = (key: keyof AdvancedColorConfig, value: string) => {
     onAdvancedColorsChange({
@@ -100,6 +132,7 @@ export function AdvancedSettings({
 
   const handleReset = () => {
     onAdvancedColorsChange({})
+    setShowGuide(false)
   }
 
   // Theme defaults for display purposes
@@ -159,6 +192,34 @@ export function AdvancedSettings({
       {/* Collapsible Content */}
       {isOpen && (
         <div className="flex flex-col gap-4 rounded-lg border border-border bg-muted/30 p-4">
+          {/* Feature Guide */}
+          {showGuide && (
+            <div className="relative flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-950">
+              <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-500" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                  {t.guideTitle}
+                </p>
+                <p className="mt-1 text-xs text-blue-700 dark:text-blue-300">
+                  {t.guideMessage}
+                </p>
+                <button
+                  onClick={handleDontShowAgain}
+                  className="mt-2 text-xs font-medium text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+                >
+                  {t.dontShowAgain}
+                </button>
+              </div>
+              <button
+                onClick={handleDismissGuide}
+                className="text-blue-500 hover:text-blue-700 dark:hover:text-blue-300"
+                aria-label="Dismiss"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+          
           <div className="flex items-center justify-between">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground/70 sm:text-sm">
               {t.customColors}

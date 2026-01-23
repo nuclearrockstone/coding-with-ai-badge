@@ -40,7 +40,10 @@
     "text2Color": "第二行颜色",
     "iconColor": "图标颜色",
     "reset": "重置",
-    "active": "已启用"
+    "active": "已启用",
+    "guideTitle": "高级设置已启用",
+    "guideMessage": "自定义颜色将覆盖默认主题设置。点击\"重置\"可恢复默认值。",
+    "dontShowAgain": "不再提示"
   },
   "preview": {
     "title": "预览",

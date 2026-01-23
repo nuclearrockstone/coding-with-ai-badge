@@ -51,6 +51,9 @@ interface Messages {
     iconColor: string
     reset: string
     active: string
+    guideTitle: string
+    guideMessage: string
+    dontShowAgain: string
   }
   preview: { title: string; lightBg: string; darkBg: string }
   copy: { title: string; directUrl: string; markdown: string; html: string; copy: string; copied: string }
