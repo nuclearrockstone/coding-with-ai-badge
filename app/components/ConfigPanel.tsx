@@ -98,7 +98,7 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0" align="start">
+            <PopoverContent className="w-full p-0 max-h-[60vh] overflow-auto" align="start">
               <Command>
                 <CommandInput placeholder={t.searchCategory} />
                 <CommandList>
@@ -149,7 +149,7 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0" align="start">
+            <PopoverContent className="w-full p-0 max-h-[60vh] overflow-auto" align="start">
               <Command>
                 <CommandInput placeholder={t.searchName} />
                 <CommandList>
@@ -224,7 +224,7 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
         <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
           {t.badgeTheme}
         </h3>
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <Button
             variant={config.theme === 'light' ? 'default' : 'outline'}
             onClick={() => onConfigChange({ ...config, theme: 'light' })}

@@ -21,7 +21,7 @@ function useOrigin(): string {
   const getSnapshot = () => window.location.origin
   const getServerSnapshot = () => ''
   const subscribe = () => () => {}
-  
+
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 
@@ -67,7 +67,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5 sm:gap-6">
       {/* Section Header */}
       <div className="flex items-center gap-2">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -79,7 +79,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
 
       {/* URL */}
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <label className="text-xs font-medium text-muted-foreground">{t.directUrl}</label>
           <button
             onClick={() => handleCopy('url')}
@@ -109,7 +109,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
 
       {/* Markdown */}
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <label className="text-xs font-medium text-muted-foreground">{t.markdown}</label>
           <button
             onClick={() => handleCopy('markdown')}
@@ -139,7 +139,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
 
       {/* HTML */}
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <label className="text-xs font-medium text-muted-foreground">{t.html}</label>
           <button
             onClick={() => handleCopy('html')}
