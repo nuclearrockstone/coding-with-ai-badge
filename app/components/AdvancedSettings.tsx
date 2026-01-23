@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
+import * as Popover from '@radix-ui/react-popover'
 
 import { Button } from '@/app/components/ui/button'
 import type { BadgeConfig, AdvancedColorConfig } from '@/app/lib/types'
@@ -22,6 +23,64 @@ interface AdvancedSettingsProps {
     reset: string
     active: string
   }
+}
+
+// Color picker component that stays open while selecting
+function ColorPicker({
+  value,
+  defaultValue,
+  onChange,
+}: {
+  value: string
+  defaultValue: string
+  onChange: (value: string) => void
+}) {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const displayValue = value || defaultValue || '#000000'
+
+  return (
+    <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Popover.Trigger asChild>
+        <button
+          className="h-8 w-10 cursor-pointer rounded border border-input bg-background p-0.5"
+          style={{ backgroundColor: displayValue }}
+          aria-label="Select color"
+        >
+          <span className="sr-only">Select color</span>
+        </button>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content
+          className="z-50 rounded-lg border border-border bg-background p-3 shadow-lg"
+          sideOffset={5}
+          onInteractOutside={(e) => {
+            // Only close if clicking outside, not inside color picker
+            const target = e.target as HTMLElement
+            if (target.tagName === 'INPUT' && target.getAttribute('type') === 'color') {
+              e.preventDefault()
+            }
+          }}
+        >
+          <div className="flex flex-col gap-3">
+            <input
+              type="color"
+              value={displayValue}
+              onChange={(e) => onChange(e.target.value)}
+              className="h-32 w-32 cursor-pointer rounded border-0 bg-transparent p-0"
+            />
+            <input
+              type="text"
+              value={value || ''}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder={defaultValue || '#000000'}
+              className="w-full rounded-md border border-input bg-background px-2 py-1.5 text-xs text-foreground placeholder-muted-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring"
+            />
+          </div>
+          <Popover.Arrow className="fill-border" />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  )
 }
 
 export function AdvancedSettings({
@@ -121,11 +180,10 @@ export function AdvancedSettings({
               <div key={key} className="flex flex-col gap-1.5">
                 <label className="text-xs font-medium text-muted-foreground">{label}</label>
                 <div className="flex items-center gap-2">
-                  <input
-                    type="color"
-                    value={advancedColors[key] || defaultValue || '#000000'}
-                    onChange={(e) => handleColorChange(key, e.target.value)}
-                    className="h-8 w-10 cursor-pointer rounded border border-input bg-background"
+                  <ColorPicker
+                    value={advancedColors[key] || ''}
+                    defaultValue={defaultValue}
+                    onChange={(value) => handleColorChange(key, value)}
                   />
                   <input
                     type="text"
