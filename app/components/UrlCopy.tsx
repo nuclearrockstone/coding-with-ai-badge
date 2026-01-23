@@ -67,7 +67,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       {/* Section Header */}
       <div className="flex items-center gap-2">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -83,21 +83,21 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
           <label className="text-xs font-medium text-muted-foreground">{t.directUrl}</label>
           <button
             onClick={() => handleCopy('url')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:min-h-0 sm:min-w-0"
           >
             {copiedType === 'url' ? (
               <>
                 <svg className="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                {t.copied}
+                <span className="hidden sm:inline">{t.copied}</span>
               </>
             ) : (
               <>
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                {t.copy}
+                <span className="hidden sm:inline">{t.copy}</span>
               </>
             )}
           </button>
@@ -113,21 +113,21 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
           <label className="text-xs font-medium text-muted-foreground">{t.markdown}</label>
           <button
             onClick={() => handleCopy('markdown')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:min-h-0 sm:min-w-0"
           >
             {copiedType === 'markdown' ? (
               <>
                 <svg className="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                {t.copied}
+                <span className="hidden sm:inline">{t.copied}</span>
               </>
             ) : (
               <>
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                {t.copy}
+                <span className="hidden sm:inline">{t.copy}</span>
               </>
             )}
           </button>
@@ -143,21 +143,21 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
           <label className="text-xs font-medium text-muted-foreground">{t.html}</label>
           <button
             onClick={() => handleCopy('html')}
-            className="flex cursor-pointer items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:min-h-0 sm:min-w-0"
           >
             {copiedType === 'html' ? (
               <>
                 <svg className="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                {t.copied}
+                <span className="hidden sm:inline">{t.copied}</span>
               </>
             ) : (
               <>
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                {t.copy}
+                <span className="hidden sm:inline">{t.copy}</span>
               </>
             )}
           </button>
