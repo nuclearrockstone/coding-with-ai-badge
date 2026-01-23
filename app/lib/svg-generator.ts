@@ -2,9 +2,10 @@
 import toc from '@lobehub/icons/es/toc'
 
 import iconPathsData from './icon-paths.json'
+import type { IconColorMode } from './types'
 
-// Color mode options for icon fill
-export type IconColorMode = 'original' | 'primary' | 'contrast'
+// Re-export for API route usage
+export type { IconColorMode }
 
 // Custom color configuration
 export interface CustomColors {
@@ -271,7 +272,7 @@ function generateMultiPathIcon(
   const gradientIdMap: Record<string, string> = {}
   
   // Generate gradient definitions if needed and not overriding colors
-  if (iconData.defs && !overrideFillColor) {
+  if (iconData.defs && overrideFillColor === null) {
     const uniquePrefix = `icon-${iconId.toLowerCase()}-`
     
     // Generate linear gradients

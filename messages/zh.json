@@ -39,7 +39,8 @@
     "text1Color": "第一行颜色",
     "text2Color": "第二行颜色",
     "iconColor": "图标颜色",
-    "reset": "重置"
+    "reset": "重置",
+    "active": "已启用"
   },
   "preview": {
     "title": "预览",

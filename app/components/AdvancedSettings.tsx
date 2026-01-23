@@ -20,6 +20,7 @@ interface AdvancedSettingsProps {
     text2Color: string
     iconColor: string
     reset: string
+    active: string
   }
 }
 
@@ -85,7 +86,7 @@ export function AdvancedSettings({
           {t.advancedSettings}
           {hasCustomColors && (
             <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
-              Active
+              {t.active}
             </span>
           )}
         </span>

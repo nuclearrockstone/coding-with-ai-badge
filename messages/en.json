@@ -39,7 +39,8 @@
     "text1Color": "Line 1 Color",
     "text2Color": "Line 2 Color",
     "iconColor": "Icon Color",
-    "reset": "Reset"
+    "reset": "Reset",
+    "active": "Active"
   },
   "preview": {
     "title": "Preview",

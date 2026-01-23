@@ -50,6 +50,7 @@ interface Messages {
     text2Color: string
     iconColor: string
     reset: string
+    active: string
   }
   preview: { title: string; lightBg: string; darkBg: string }
   copy: { title: string; directUrl: string; markdown: string; html: string; copy: string; copied: string }
