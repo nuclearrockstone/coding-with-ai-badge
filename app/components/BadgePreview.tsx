@@ -30,7 +30,7 @@ export function BadgePreview({ config, translations: t }: BadgePreviewProps) {
   }, [config])
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-6">
+    <div className="flex w-full min-w-0 flex-col gap-4 sm:gap-6">
       {/* Preview Label */}
       <div className="flex items-center gap-2">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />

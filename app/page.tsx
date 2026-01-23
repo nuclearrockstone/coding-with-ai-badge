@@ -109,7 +109,7 @@ export default function Home() {
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 md:py-12">
         <div className="grid gap-6 sm:gap-8 md:gap-12 lg:grid-cols-2">
           {/* Left Column: Config Panel */}
-          <div className="rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
+          <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
             <ConfigPanel
               config={config}
               onConfigChange={setConfig}
@@ -121,14 +121,14 @@ export default function Home() {
           </div>
 
           {/* Right Column: Preview & Copy */}
-          <div className="flex flex-col gap-6 sm:gap-8">
+          <div className="flex min-w-0 flex-col gap-6 sm:gap-8">
             {/* Preview */}
-            <div className="rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
+            <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
               <BadgePreview config={config} translations={messages.preview} />
             </div>
 
             {/* Copy URLs */}
-            <div className="rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
+            <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
               <UrlCopy config={config} translations={messages.copy} />
             </div>
           </div>

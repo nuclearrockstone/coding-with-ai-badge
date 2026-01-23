@@ -67,7 +67,7 @@ export function UrlCopy({ config, translations: t }: UrlCopyProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-6">
+    <div className="flex w-full min-w-0 flex-col gap-4 sm:gap-6">
       {/* Section Header */}
       <div className="flex items-center gap-2">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />

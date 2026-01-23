@@ -76,7 +76,7 @@ export function ConfigPanel({ config, onConfigChange, translations: t }: ConfigP
   const selectedIcon = icons.find((icon) => icon.id === config.name)
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-6">
+    <div className="flex w-full min-w-0 flex-col gap-4 sm:gap-6">
       {/* Section: Select Icon */}
       <div className="flex flex-col gap-3 sm:gap-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground/70 sm:text-sm">
