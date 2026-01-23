@@ -30,6 +30,17 @@
     "colorModePrimary": "主色",
     "colorModeContrast": "对比色"
   },
+  "advanced": {
+    "advancedSettings": "高级设置",
+    "customColors": "自定义颜色",
+    "background": "背景色",
+    "border": "边框色",
+    "iconBg": "图标背景",
+    "text1Color": "第一行颜色",
+    "text2Color": "第二行颜色",
+    "iconColor": "图标颜色",
+    "reset": "重置"
+  },
   "preview": {
     "title": "预览",
     "lightBg": "浅色背景",

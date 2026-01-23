@@ -2,10 +2,11 @@
 
 import { useMemo } from 'react'
 
-import type { BadgeConfig } from '@/app/lib/types'
+import type { BadgeConfig, AdvancedColorConfig } from '@/app/lib/types'
 
 interface BadgePreviewProps {
   config: BadgeConfig
+  advancedColors?: AdvancedColorConfig
   translations: {
     title: string
     lightBg: string
@@ -13,7 +14,7 @@ interface BadgePreviewProps {
   }
 }
 
-export function BadgePreview({ config, translations: t }: BadgePreviewProps) {
+export function BadgePreview({ config, advancedColors = {}, translations: t }: BadgePreviewProps) {
   const svgUrl = useMemo(() => {
     const params = new URLSearchParams()
     params.set('name', config.name)
@@ -29,8 +30,16 @@ export function BadgePreview({ config, translations: t }: BadgePreviewProps) {
     if (config.colorMode && config.colorMode !== 'original') {
       params.set('colorMode', config.colorMode)
     }
+    // Add advanced colors
+    if (advancedColors.background) params.set('background', advancedColors.background)
+    if (advancedColors.border) params.set('border', advancedColors.border)
+    if (advancedColors.iconBg) params.set('iconBg', advancedColors.iconBg)
+    if (advancedColors.text1) params.set('text1', advancedColors.text1)
+    if (advancedColors.text2) params.set('text2', advancedColors.text2)
+    if (advancedColors.iconColor) params.set('iconColor', advancedColors.iconColor)
+    
     return `/api/badge?${params.toString()}`
-  }, [config])
+  }, [config, advancedColors])
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-4 sm:gap-6">

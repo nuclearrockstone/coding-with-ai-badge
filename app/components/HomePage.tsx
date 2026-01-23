@@ -5,13 +5,14 @@ import { Github } from 'lucide-react'
 
 import { BadgePreview } from '@/app/components/BadgePreview'
 import { ConfigPanel } from '@/app/components/ConfigPanel'
+import { AdvancedSettings } from '@/app/components/AdvancedSettings'
 import { UrlCopy } from '@/app/components/UrlCopy'
 import { ThemeToggle } from '@/app/components/ThemeToggle'
 import { LanguageToggle } from '@/app/components/LanguageToggle'
-import { DEFAULT_CONFIG, SITE_CONFIG } from '@/app/lib/types'
+import { DEFAULT_CONFIG, DEFAULT_ADVANCED_COLORS, SITE_CONFIG } from '@/app/lib/types'
 import { getIconCount, getIconById } from '@/app/lib/icons'
 
-import type { BadgeConfig, IconColorMode } from '@/app/lib/types'
+import type { BadgeConfig, IconColorMode, AdvancedColorConfig } from '@/app/lib/types'
 
 // 翻译类型
 interface Messages {
@@ -39,6 +40,17 @@ interface Messages {
     colorModePrimary: string
     colorModeContrast: string
   }
+  advanced: {
+    advancedSettings: string
+    customColors: string
+    background: string
+    border: string
+    iconBg: string
+    text1Color: string
+    text2Color: string
+    iconColor: string
+    reset: string
+  }
   preview: { title: string; lightBg: string; darkBg: string }
   copy: { title: string; directUrl: string; markdown: string; html: string; copy: string; copied: string }
   footer: { poweredBy: string; inspiredBy: string }
@@ -47,6 +59,7 @@ interface Messages {
 
 export function HomePage() {
   const [config, setConfig] = useState<BadgeConfig>(DEFAULT_CONFIG)
+  const [advancedColors, setAdvancedColors] = useState<AdvancedColorConfig>(DEFAULT_ADVANCED_COLORS)
   const [messages, setMessages] = useState<Messages | null>(null)
   const [iconCount, setIconCount] = useState(0)
   const [isInitialized, setIsInitialized] = useState(false)
@@ -65,6 +78,14 @@ export function HomePage() {
     const line2 = urlParams.get('line2')
     const theme = urlParams.get('theme')
     const colorMode = urlParams.get('colorMode')
+    
+    // Advanced color parameters
+    const background = urlParams.get('background')
+    const border = urlParams.get('border')
+    const iconBg = urlParams.get('iconBg')
+    const text1 = urlParams.get('text1')
+    const text2 = urlParams.get('text2')
+    const iconColor = urlParams.get('iconColor')
 
     if (name || line1 || line2 || theme || colorMode) {
       const iconData = name ? getIconById(name) : null
@@ -79,11 +100,24 @@ export function HomePage() {
       }
       setConfig(newConfig)
     }
+    
+    // Set advanced colors if any are present
+    if (background || border || iconBg || text1 || text2 || iconColor) {
+      setAdvancedColors({
+        background: background || undefined,
+        border: border || undefined,
+        iconBg: iconBg || undefined,
+        text1: text1 || undefined,
+        text2: text2 || undefined,
+        iconColor: iconColor || undefined,
+      })
+    }
+    
     setIsInitialized(true)
   }, [])
 
   // Update URL when config changes
-  const updateUrl = useCallback((newConfig: BadgeConfig) => {
+  const updateUrl = useCallback((newConfig: BadgeConfig, colors: AdvancedColorConfig) => {
     if (!isInitialized) return
 
     const params = new URLSearchParams()
@@ -100,6 +134,14 @@ export function HomePage() {
     if (newConfig.colorMode && newConfig.colorMode !== 'original') {
       params.set('colorMode', newConfig.colorMode)
     }
+    
+    // Add advanced color params
+    if (colors.background) params.set('background', colors.background)
+    if (colors.border) params.set('border', colors.border)
+    if (colors.iconBg) params.set('iconBg', colors.iconBg)
+    if (colors.text1) params.set('text1', colors.text1)
+    if (colors.text2) params.set('text2', colors.text2)
+    if (colors.iconColor) params.set('iconColor', colors.iconColor)
 
     const newUrl = `${window.location.pathname}?${params.toString()}`
     window.history.replaceState(null, '', newUrl)
@@ -108,8 +150,14 @@ export function HomePage() {
   // Handle config change
   const handleConfigChange = useCallback((newConfig: BadgeConfig) => {
     setConfig(newConfig)
-    updateUrl(newConfig)
-  }, [updateUrl])
+    updateUrl(newConfig, advancedColors)
+  }, [updateUrl, advancedColors])
+  
+  // Handle advanced colors change
+  const handleAdvancedColorsChange = useCallback((colors: AdvancedColorConfig) => {
+    setAdvancedColors(colors)
+    updateUrl(config, colors)
+  }, [updateUrl, config])
 
   if (!messages) {
     return (
@@ -167,27 +215,39 @@ export function HomePage() {
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 md:py-12">
         <div className="grid gap-6 sm:gap-8 md:gap-12 lg:grid-cols-2">
           {/* Left Column: Config Panel */}
-          <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
-            <ConfigPanel
-              config={config}
-              onConfigChange={handleConfigChange}
-              translations={{
-                ...messages.config,
-                categories: messages.categories,
-              }}
-            />
+          <div className="flex flex-col gap-6 sm:gap-8">
+            <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
+              <ConfigPanel
+                config={config}
+                onConfigChange={handleConfigChange}
+                translations={{
+                  ...messages.config,
+                  categories: messages.categories,
+                }}
+              />
+            </div>
+            
+            {/* Advanced Settings */}
+            <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
+              <AdvancedSettings
+                config={config}
+                advancedColors={advancedColors}
+                onAdvancedColorsChange={handleAdvancedColorsChange}
+                translations={messages.advanced}
+              />
+            </div>
           </div>
 
           {/* Right Column: Preview & Copy */}
           <div className="flex min-w-0 flex-col gap-6 sm:gap-8">
             {/* Preview */}
             <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
-              <BadgePreview config={config} translations={messages.preview} />
+              <BadgePreview config={config} advancedColors={advancedColors} translations={messages.preview} />
             </div>
 
             {/* Copy URLs */}
             <div className="min-w-0 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm sm:rounded-2xl sm:p-6">
-              <UrlCopy config={config} translations={messages.copy} />
+              <UrlCopy config={config} advancedColors={advancedColors} translations={messages.copy} />
             </div>
           </div>
         </div>

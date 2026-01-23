@@ -11,6 +11,14 @@ export async function GET(request: NextRequest): Promise<Response> {
     const line2 = searchParams.get('line2') || undefined
     const theme = searchParams.get('theme') as 'light' | 'dark' | null
     const colorMode = searchParams.get('colorMode') as IconColorMode | null
+    
+    // Advanced color customization parameters
+    const background = searchParams.get('background') || undefined
+    const border = searchParams.get('border') || undefined
+    const iconBg = searchParams.get('iconBg') || undefined
+    const text1 = searchParams.get('text1') || undefined
+    const text2 = searchParams.get('text2') || undefined
+    const iconColor = searchParams.get('iconColor') || undefined
 
     if (!name) {
       return new Response('Missing required parameter: name', { 
@@ -27,6 +35,14 @@ export async function GET(request: NextRequest): Promise<Response> {
       colorMode: colorMode && ['original', 'primary', 'contrast'].includes(colorMode) 
         ? colorMode 
         : 'original',
+      customColors: {
+        background,
+        border,
+        iconBg,
+        text1,
+        text2,
+        iconColor,
+      },
     })
 
     return new Response(svg, {

@@ -30,6 +30,17 @@
     "colorModePrimary": "Primary",
     "colorModeContrast": "Contrast"
   },
+  "advanced": {
+    "advancedSettings": "Advanced Settings",
+    "customColors": "Custom Colors",
+    "background": "Background",
+    "border": "Border",
+    "iconBg": "Icon Background",
+    "text1Color": "Line 1 Color",
+    "text2Color": "Line 2 Color",
+    "iconColor": "Icon Color",
+    "reset": "Reset"
+  },
   "preview": {
     "title": "Preview",
     "lightBg": "Light Background",

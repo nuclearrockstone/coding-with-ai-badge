@@ -6,12 +6,23 @@ import iconPathsData from './icon-paths.json'
 // Color mode options for icon fill
 export type IconColorMode = 'original' | 'primary' | 'contrast'
 
+// Custom color configuration
+export interface CustomColors {
+  background?: string
+  border?: string
+  iconBg?: string
+  text1?: string
+  text2?: string
+  iconColor?: string
+}
+
 export interface BadgeParams {
   name: string
   line1?: string
   line2?: string
   theme?: 'light' | 'dark'
   colorMode?: IconColorMode
+  customColors?: CustomColors
 }
 
 interface IconData {
@@ -147,7 +158,18 @@ const FONT_FAMILY = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hel
 // 生成 Badge SVG - 使用 text 标签和系统字体栈
 export async function generateBadgeSvg(params: BadgeParams): Promise<string> {
   const config = getBadgeConfig(params)
-  const theme = THEMES[config.theme]
+  const baseTheme = THEMES[config.theme]
+  
+  // Apply custom colors if provided
+  const customColors = params.customColors || {}
+  const theme = {
+    background: customColors.background || baseTheme.background,
+    border: customColors.border || baseTheme.border,
+    iconBg: customColors.iconBg || baseTheme.iconBg,
+    text1: customColors.text1 || baseTheme.text1,
+    text2: customColors.text2 || baseTheme.text2,
+    contrastIcon: baseTheme.contrastIcon,
+  }
   
   // 字体尺寸
   const line1FontSize = 12
@@ -178,8 +200,12 @@ export async function generateBadgeSvg(params: BadgeParams): Promise<string> {
   const line1Y = 26
   const line2Y = 44
 
-  // Determine fill color based on colorMode
+  // Determine fill color based on colorMode or custom iconColor
   const getFillColor = (): string | null => {
+    // Custom iconColor takes precedence
+    if (customColors.iconColor) {
+      return customColors.iconColor
+    }
     switch (config.colorMode) {
       case 'primary':
         return config.colorPrimary
