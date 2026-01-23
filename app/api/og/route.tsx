@@ -19,11 +19,8 @@ export async function GET(request: Request): Promise<ImageResponse> {
   const name = nameParam ?? DEFAULT_CONFIG.name
   const line1 = line1Param ?? DEFAULT_CONFIG.line1
   const theme = themeParam === 'dark' || themeParam === 'light' ? themeParam : DEFAULT_CONFIG.theme
-  let line2 = line2Param ?? DEFAULT_CONFIG.line2
-  if (nameParam && !line2Param) {
-    // If only the name is customized, let the SVG generator derive line2 from icon data.
-    line2 = undefined
-  }
+  // If only the name is customized, let the SVG generator derive line2 from icon data.
+  const line2 = line2Param ?? (nameParam ? undefined : DEFAULT_CONFIG.line2)
   const badgeSvg = await generateBadgeSvg({ name, line1, line2, theme })
 
   return new ImageResponse(
