@@ -1,9 +1,9 @@
 import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 
-import toc from '@lobehub/icons/es/toc'
-
-import iconPathsData from '@/app/lib/icon-paths.json'
+// Use minimal JSON files instead of importing from @lobehub/icons to reduce edge function size
+import iconToc from '@/app/lib/icon-toc.json'
+import iconMonoPaths from '@/app/lib/icon-mono-paths.json'
 
 export const runtime = 'edge'
 
@@ -33,21 +33,14 @@ interface IconData {
   group: string
 }
 
-interface IconPathInfo {
-  d: string
-  fill?: string
-}
-
-interface NewIconPathData {
-  viewBox: string
-  paths: IconPathInfo[]
-  monoPath?: string
-  colorPrimary?: string
+interface MonoPathData {
+  monoPath: string | null
+  colorPrimary: string | null
 }
 
 // Get icon data from toc
 function getIconData(name: string): IconData | null {
-  const icons = toc as IconData[]
+  const icons = iconToc as IconData[]
   return icons.find((icon) =>
     icon.id.toLowerCase() === name.toLowerCase() ||
     icon.title.toLowerCase() === name.toLowerCase()
@@ -56,16 +49,9 @@ function getIconData(name: string): IconData | null {
 
 // Get icon mono path (for single-color rendering in OG image)
 function getIconMonoPath(iconId: string): string | null {
-  const iconPaths = iconPathsData as Record<string, NewIconPathData>
+  const iconPaths = iconMonoPaths as Record<string, MonoPathData>
   const data = iconPaths[iconId.toLowerCase()]
-  // Use monoPath if available, otherwise combine all paths
-  if (data?.monoPath) {
-    return data.monoPath
-  }
-  if (data?.paths && data.paths.length > 0) {
-    return data.paths.map(p => p.d).join(' ')
-  }
-  return null
+  return data?.monoPath || null
 }
 
 export async function GET(request: NextRequest): Promise<Response> {
