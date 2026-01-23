@@ -67,7 +67,11 @@ interface IconPathInfo {
   d: string
   fill?: string
   fillVar?: string
-  useFillId?: boolean  // Path uses single gradient from useFillId hook
+  /**
+   * When true, this path uses a single shared gradient defined via @lobehub/icons useFillId hook.
+   * The gradient is stored in defs.linearGradients with idVar='single'.
+   */
+  useFillId?: boolean
   fillRule?: string
   opacity?: number
 }
@@ -83,7 +87,11 @@ interface IconPathData {
   defs: IconDefs | null
   monoPath?: string
   colorPrimary?: string
-  usesSingleGradient?: boolean  // Icon uses useFillId hook for single gradient
+  /**
+   * When true, the icon uses @lobehub/icons useFillId hook for a single shared gradient.
+   * Paths marked with useFillId=true should reference the gradient with idVar='single'.
+   */
+  usesSingleGradient?: boolean
 }
 
 interface BadgeConfig {
@@ -322,6 +330,10 @@ function generateMultiPathIcon(
     } else if (path.useFillId && gradientIdMap['single']) {
       // Use single gradient from useFillId
       fill = `url(#${gradientIdMap['single']})`
+    } else if (path.useFillId && iconData.colorPrimary) {
+      // Fallback: useFillId is set but gradient wasn't generated (e.g., in override mode)
+      // Use colorPrimary as fallback
+      fill = iconData.colorPrimary
     } else if (path.fillVar && gradientIdMap[path.fillVar]) {
       // Use gradient reference
       fill = `url(#${gradientIdMap[path.fillVar]})`
