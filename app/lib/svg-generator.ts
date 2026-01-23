@@ -275,9 +275,9 @@ function generateMultiPathIcon(
 ): string {
   // Parse viewBox to get the original icon dimensions
   // viewBox format: "minX minY width height" (e.g., "0 0 24 24" or "0 0 320 320")
-  const viewBoxParts = iconData.viewBox.split(' ').map(Number)
-  const viewBoxWidth = viewBoxParts[2] || 24
-  const viewBoxHeight = viewBoxParts[3] || 24
+  const viewBoxParts = iconData.viewBox?.split(' ').map(Number) || []
+  const viewBoxWidth = (viewBoxParts.length >= 4 && !isNaN(viewBoxParts[2])) ? viewBoxParts[2] : 24
+  const viewBoxHeight = (viewBoxParts.length >= 4 && !isNaN(viewBoxParts[3])) ? viewBoxParts[3] : 24
   const maxDimension = Math.max(viewBoxWidth, viewBoxHeight)
   
   // Scale the icon to fit within the target size

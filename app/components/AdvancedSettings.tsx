@@ -100,8 +100,14 @@ export function AdvancedSettings({
   
   // Check localStorage on mount to see if guide was dismissed
   React.useEffect(() => {
-    const dismissed = localStorage.getItem(GUIDE_DISMISSED_KEY) === 'true'
-    setGuideDismissed(dismissed)
+    try {
+      if (typeof window !== 'undefined') {
+        const dismissed = localStorage.getItem(GUIDE_DISMISSED_KEY) === 'true'
+        setGuideDismissed(dismissed)
+      }
+    } catch {
+      // localStorage not available, keep default (dismissed)
+    }
   }, [])
   
   // Show guide when custom colors are first set
@@ -118,7 +124,13 @@ export function AdvancedSettings({
   }
   
   const handleDontShowAgain = () => {
-    localStorage.setItem(GUIDE_DISMISSED_KEY, 'true')
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(GUIDE_DISMISSED_KEY, 'true')
+      }
+    } catch {
+      // localStorage not available, ignore
+    }
     setGuideDismissed(true)
     setShowGuide(false)
   }
