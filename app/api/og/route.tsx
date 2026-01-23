@@ -68,12 +68,17 @@ export async function GET(): Promise<ImageResponse> {
                 marginTop: 12,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`data:image/svg+xml;utf8,${encodeURIComponent(badgeSvg)}`}
-                alt="Coding with AI badge preview"
-                width={520}
-                height={160}
+              <div
+                style={{
+                  backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(
+                    badgeSvg
+                  )}")`,
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'contain',
+                  height: 160,
+                  width: 520,
+                }}
               />
             </div>
           </div>
