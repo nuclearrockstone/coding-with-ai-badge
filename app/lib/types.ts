@@ -18,5 +18,5 @@ export const DEFAULT_CONFIG: BadgeConfig = {
 export const SITE_CONFIG = {
   name: 'Coding with AI Badge',
   domain: process.env.NEXT_PUBLIC_DOMAIN || 'https://coding-with-ai-badge.vercel.app',
-  github: 'https://github.com',
+  github: 'https://github.com/nuclearrockstone/coding-with-ai-badge',
 }
