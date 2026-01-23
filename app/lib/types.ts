@@ -17,6 +17,10 @@ export const DEFAULT_CONFIG: BadgeConfig = {
 // 站点配置
 export const SITE_CONFIG = {
   name: 'Coding with AI Badge',
+  title: 'Coding with AI Badge Generator',
+  description:
+    'Generate beautiful AI badges to showcase models, tools, and providers in your projects.',
+  shortDescription: 'AI badge generator for README, documentation, and websites.',
   domain: process.env.NEXT_PUBLIC_DOMAIN || 'https://coding-with-ai-badge.vercel.app',
   github: 'https://github.com/nuclearrockstone/coding-with-ai-badge',
 }
