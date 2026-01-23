@@ -5,8 +5,26 @@ import { DEFAULT_CONFIG, SITE_CONFIG } from '@/app/lib/types'
 
 export const runtime = 'edge'
 
-export async function GET(): Promise<ImageResponse> {
-  const badgeSvg = await generateBadgeSvg({ name: DEFAULT_CONFIG.name })
+function normalizeParam(value: string | null): string | undefined {
+  const trimmed = value?.trim()
+  return trimmed ? trimmed : undefined
+}
+
+export async function GET(request: Request): Promise<ImageResponse> {
+  const { searchParams } = new URL(request.url)
+  const nameParam = normalizeParam(searchParams.get('name'))
+  const line1Param = normalizeParam(searchParams.get('line1'))
+  const line2Param = normalizeParam(searchParams.get('line2'))
+  const themeParam = normalizeParam(searchParams.get('theme'))
+  const name = nameParam ?? DEFAULT_CONFIG.name
+  const line1 = line1Param ?? DEFAULT_CONFIG.line1
+  const theme = themeParam === 'dark' || themeParam === 'light' ? themeParam : DEFAULT_CONFIG.theme
+  let line2 = line2Param ?? DEFAULT_CONFIG.line2
+  if (nameParam && !line2Param) {
+    // If only the name is customized, let the SVG generator derive line2 from icon data.
+    line2 = undefined
+  }
+  const badgeSvg = await generateBadgeSvg({ name, line1, line2, theme })
 
   return new ImageResponse(
     (
