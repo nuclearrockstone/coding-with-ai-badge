@@ -1,6 +1,10 @@
 import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 
+import toc from '@lobehub/icons/es/toc'
+
+import iconPathsData from '@/app/lib/icon-paths.json'
+
 export const runtime = 'edge'
 
 // Theme colors
@@ -21,16 +25,52 @@ const THEMES = {
   },
 }
 
+interface IconData {
+  id: string
+  title: string
+  fullTitle: string
+  color: string
+  group: string
+}
+
+interface IconPathData {
+  path: string
+  viewBox: string
+}
+
+// Get icon data from toc
+function getIconData(name: string): IconData | null {
+  const icons = toc as IconData[]
+  return icons.find((icon) =>
+    icon.id.toLowerCase() === name.toLowerCase() ||
+    icon.title.toLowerCase() === name.toLowerCase()
+  ) || null
+}
+
+// Get icon SVG path
+function getIconPath(iconId: string): string | null {
+  const iconPaths = iconPathsData as Record<string, IconPathData>
+  const data = iconPaths[iconId.toLowerCase()]
+  return data?.path || null
+}
+
 export async function GET(request: NextRequest): Promise<Response> {
   try {
     const { searchParams } = new URL(request.url)
     const name = searchParams.get('name') || 'Claude'
     const line1 = searchParams.get('line1') || 'coding with'
-    const line2 = searchParams.get('line2') || name
     const theme = (searchParams.get('theme') as 'light' | 'dark') || 'light'
 
+    // Get real icon data
+    const iconData = getIconData(name)
+    const iconId = iconData?.id || name
+    const iconPath = getIconPath(iconId)
+    const iconColor = iconData?.color || '#6B7280'
+    const displayName = searchParams.get('line2') || iconData?.fullTitle || iconData?.title || name
+
     const colors = THEMES[theme]
-    const iconColor = theme === 'dark' ? '#FFFFFF' : '#E07A3B'
+    // For dark theme, use white for icon color to ensure visibility
+    const finalIconColor = theme === 'dark' ? '#FFFFFF' : iconColor
 
     return new ImageResponse(
       (
@@ -44,6 +84,7 @@ export async function GET(request: NextRequest): Promise<Response> {
             justifyContent: 'center',
             backgroundColor: theme === 'light' ? '#f8fafc' : '#0f172a',
             fontFamily: 'system-ui, sans-serif',
+            padding: 60,
           }}
         >
           {/* Header */}
@@ -51,24 +92,24 @@ export async function GET(request: NextRequest): Promise<Response> {
             style={{
               display: 'flex',
               alignItems: 'center',
-              marginBottom: 40,
+              marginBottom: 48,
             }}
           >
             <div
               style={{
                 display: 'flex',
-                width: 56,
-                height: 56,
-                borderRadius: 12,
+                width: 72,
+                height: 72,
+                borderRadius: 16,
                 background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginRight: 16,
+                marginRight: 20,
               }}
             >
               <svg
-                width="32"
-                height="32"
+                width="42"
+                height="42"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="white"
@@ -81,7 +122,7 @@ export async function GET(request: NextRequest): Promise<Response> {
             </div>
             <span
               style={{
-                fontSize: 32,
+                fontSize: 42,
                 fontWeight: 700,
                 color: theme === 'light' ? '#1e293b' : '#f8fafc',
               }}
@@ -90,43 +131,67 @@ export async function GET(request: NextRequest): Promise<Response> {
             </span>
           </div>
 
-          {/* Badge Preview */}
+          {/* Badge Preview - Larger and more prominent */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              padding: 12,
-              borderRadius: 12,
+              padding: 24,
+              borderRadius: 20,
               backgroundColor: colors.background,
-              border: `1px solid ${colors.border}`,
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              border: `2px solid ${colors.border}`,
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              transform: 'scale(1.8)',
+              marginTop: 20,
+              marginBottom: 40,
             }}
           >
-            {/* Icon Box */}
+            {/* Icon Box with real icon */}
             <div
               style={{
                 display: 'flex',
-                width: 64,
-                height: 64,
-                borderRadius: 10,
+                width: 80,
+                height: 80,
+                borderRadius: 14,
                 backgroundColor: colors.iconBg,
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginRight: 16,
+                marginRight: 20,
               }}
             >
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke={iconColor}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-              </svg>
+              {iconPath ? (
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill={finalIconColor}
+                >
+                  <path d={iconPath} fillRule="evenodd" />
+                </svg>
+              ) : (
+                // Fallback: Show first letter in a circle
+                <div
+                  style={{
+                    display: 'flex',
+                    width: 48,
+                    height: 48,
+                    borderRadius: 24,
+                    background: `linear-gradient(135deg, ${iconColor}, ${iconColor}dd)`,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 24,
+                      fontWeight: 700,
+                      color: 'white',
+                    }}
+                  >
+                    {displayName.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Text */}
@@ -138,20 +203,21 @@ export async function GET(request: NextRequest): Promise<Response> {
             >
               <span
                 style={{
-                  fontSize: 16,
+                  fontSize: 20,
                   color: colors.text1,
+                  marginBottom: 4,
                 }}
               >
                 {line1}
               </span>
               <span
                 style={{
-                  fontSize: 22,
+                  fontSize: 28,
                   fontWeight: 600,
                   color: colors.text2,
                 }}
               >
-                {line2}
+                {displayName}
               </span>
             </div>
           </div>
@@ -159,14 +225,26 @@ export async function GET(request: NextRequest): Promise<Response> {
           {/* Tagline */}
           <p
             style={{
-              marginTop: 40,
-              fontSize: 20,
+              marginTop: 60,
+              fontSize: 24,
               color: theme === 'light' ? '#64748b' : '#94a3b8',
               textAlign: 'center',
-              maxWidth: 600,
+              maxWidth: 800,
             }}
           >
             Generate beautiful badges for your AI-powered projects
+          </p>
+
+          {/* URL hint */}
+          <p
+            style={{
+              marginTop: 16,
+              fontSize: 18,
+              color: theme === 'light' ? '#94a3b8' : '#64748b',
+              textAlign: 'center',
+            }}
+          >
+            coding-with-ai-badge.vercel.app
           </p>
         </div>
       ),
