@@ -28,6 +28,8 @@ export async function GET(): Promise<ImageResponse> {
             border: '1px solid #E5E7EB',
             borderRadius: 24,
             boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
+            display: 'flex',
+            flexDirection: 'column',
             padding: '32px 40px',
           }}
         >
@@ -76,6 +78,7 @@ export async function GET(): Promise<ImageResponse> {
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'contain',
+                  display: 'flex',
                   height: 160,
                   width: 520,
                 }}
