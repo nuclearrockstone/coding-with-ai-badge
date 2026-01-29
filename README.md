@@ -270,23 +270,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   Made with ❤️ by the AI community
 </div>
-
-## 🙏 Acknowledgments
-
-- [@lobehub/icons](https://github.com/lobehub/lobe-icons) for the amazing AI icon collection
-- [Vercel](https://vercel.com) for the hosting platform
-- [shields.io](https://shields.io) for inspiration
-- [skillicons.dev](https://skillicons.dev) for design reference
-
-
-## 🔗 Related Projects
-
-- [shields.io](https://shields.io) - Quality metadata badges for open source projects
-- [skillicons.dev](https://skillicons.dev) - Devicons for your README
-- [@lobehub/icons](https://github.com/lobehub/lobe-icons) - High-quality AI/LLM icons
-
----
-
-<div align="center">
-  Made with ❤️ by the AI community
-</div>
